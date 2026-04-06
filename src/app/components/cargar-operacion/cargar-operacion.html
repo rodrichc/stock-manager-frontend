@@ -1,0 +1,86 @@
+<div class="row justify-content-center mt-4">
+  <div class="col-md-8"> 
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Registrar Nueva Operación</h4>
+      </div>
+      
+      <div class="card-body">
+        <form #formOp="ngForm">
+
+          <div class="row mb-3">
+            <div class="col-12">
+              <label class="form-label fw-bold">Tipo de Operación</label>
+              <select class="form-select border-primary" name="tipo_operacion" [(ngModel)]="operacion.tipo_operacion" required>
+                <option value="COMPRA">Compra</option>
+                <option value="VENTA">Venta</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Ticker (Activo)</label>
+              <input type="text" class="form-control text-uppercase" name="activo" 
+                     [(ngModel)]="operacion.activo" required placeholder="Ej: AAPL">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Fecha</label>
+              <input type="date" class="form-control" name="fecha" 
+                     [(ngModel)]="operacion.fecha" required>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Nominales (Cantidad)</label>
+              <input type="number" class="form-control" name="nominales" 
+                     [(ngModel)]="operacion.nominales" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Precio Unitario</label>
+              <input type="number" class="form-control" name="precio_unitario" 
+                     [(ngModel)]="operacion.precio_unitario" step="0.01" required>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label class="form-label">Moneda de Compra</label>
+              <select class="form-select" name="moneda" [(ngModel)]="operacion.moneda">
+                <option value="ARS">Pesos Argentinos (ARS)</option>
+                <option value="USD">Dólares (USD)</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Valor Dólar CCL <small class="text-muted">(Opcional)</small></label>
+              <input type="number" class="form-control" name="dolar_ccl" 
+                     [(ngModel)]="operacion.dolar_ccl" step="0.01" 
+                     placeholder="Lo busca el sistema si queda vacío..."
+                     [disabled]="operacion.moneda === 'USD'">
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary w-100 fs-5" 
+                  [disabled]="formOp.invalid" 
+                  (click)="guardarOperacion(formOp)">
+            Guardar Operación
+          </button>
+
+        </form>
+
+        @if (mensajeExito) {
+          <div class="alert alert-success mt-3 text-center mb-0">
+            ¡Operación guardada en la base de datos!
+          </div>
+        }
+        @if (mensajeError) {
+          <div class="alert alert-danger mt-3 text-center mb-0">
+            {{ mensajeError }}
+          </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>

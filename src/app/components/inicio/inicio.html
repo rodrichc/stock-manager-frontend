@@ -1,0 +1,161 @@
+<div class="container mt-5">
+  <h1 class="text-primary mb-4 text-center">Mi Portfolio de Acciones</h1>
+
+  <div class="row text-center"> 
+    <div class="col-md-3">
+      <div class="card text-bg-light mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-muted">Puesto de mi bolsillo</h5>
+          <p class="card-text fs-2 fw-bold text-dark">
+            ${{ resumenData()?.capital_invertido_usd }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-bg-primary mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Valor Actual del Portfolio</h5>
+          <p class="card-text fs-2 fw-bold">
+            ${{ resumenData()?.valor_actual_usd }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card mb-3 shadow-sm"
+        [class.text-bg-success]="resumenData()?.ganancia_neta_usd >= 0"
+        [class.text-bg-danger]="resumenData()?.ganancia_neta_usd < 0">
+        <div class="card-body">
+          <h5 class="card-title">Rendimiento Neto</h5>
+          <p class="card-text fs-2 fw-bold">
+            ${{ resumenData()?.ganancia_neta_usd }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card mb-3 shadow-sm"
+        [class.text-bg-success]="resumenData()?.rendimiento_global_porcentaje >= 0"
+        [class.text-bg-danger]="resumenData()?.rendimiento_global_porcentaje < 0">
+        <div class="card-body">
+          <h5 class="card-title">Rendimiento (%)</h5>
+          <p class="card-text fs-2 fw-bold">
+            {{ resumenData()?.rendimiento_global_porcentaje }}%
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row text-center mt-3">
+      <div class="col-md-4">
+      <div class="card mb-3 shadow-sm"
+        [class.text-bg-success]="resumenData()?.ganancia_diaria_usd >= 0"
+        [class.text-bg-danger]="resumenData()?.ganancia_diaria_usd < 0">
+        <div class="card-body">
+          <h5 class="card-title">Rendimiento Diario</h5>
+          <p class="card-text fs-2 fw-bold">
+            ${{ resumenData()?.ganancia_diaria_usd }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-3 shadow-sm"
+        [class.text-bg-success]="resumenData()?.rendimiento_diario_porcentaje >= 0"
+        [class.text-bg-danger]="resumenData()?.rendimiento_diario_porcentaje < 0">
+        <div class="card-body">
+          <h5 class="card-title">Rendimiento Diario(%)</h5>
+          <p class="card-text fs-2 fw-bold">
+            {{ resumenData()?.rendimiento_diario_porcentaje }}%
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-3 shadow-sm"
+        [class.text-bg-success]="resumenData()?.ganancia_realizada >= 0"
+        [class.text-bg-danger]="resumenData()?.ganancia_realizada < 0">
+        <div class="card-body">
+          <h5 class="card-title">Ganancia Realizada</h5>
+          <p class="card-text fs-2 fw-bold">
+            ${{ resumenData()?.ganancia_realizada }}
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <app-grafico-evolucion></app-grafico-evolucion>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card shadow-sm border-primary">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Calculadora de Rendimiento Real (TWR)</h5>
+      </div>
+      <div class="card-body">
+        
+        <div class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label">Fecha de Inicio</label>
+            <input type="date" class="form-control" #inputInicio>
+          </div>
+          
+          <div class="col-md-4">
+            <label class="form-label">Fecha de Fin</label>
+            <input type="date" class="form-control" #inputFin>
+          </div>
+          
+          <div class="col-md-4">
+            <button class="btn btn-primary w-100" 
+                    (click)="calcularRendimiento(inputInicio.value, inputFin.value)">
+              Calcular
+            </button>
+          </div>
+        </div>
+
+        @if (errorCalculo()) {
+          <div class="alert alert-danger mt-3 mb-0">
+            {{ errorCalculo() }}
+          </div>
+        }
+
+        @if (resultadoTwr()) {
+          <div class="alert alert-success mt-4 mb-0 text-center">
+            <h4 class="alert-heading">Resultado del período</h4>
+            <p class="mb-0 fs-3 fw-bold">
+              {{ resultadoTwr().tu_rendimiento_twr }} %
+            </p>
+            <p>
+               Rendimiento del SPY500: {{ resultadoTwr().rendimiento_spy }}
+            </p>
+            <small class="text-muted">{{ resultadoTwr().periodo }}</small>
+          </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4 mb-4">
+  <div class="col-12">
+    <app-rendimiento-sombra></app-rendimiento-sombra>
+  </div>
+</div>
+
+<div class="row mt-4 mb-4">
+  <div class="col-12">
+    <app-tabla-activos></app-tabla-activos>
+  </div>
+</div>

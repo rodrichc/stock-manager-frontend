@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+      <li class="breadcrumb-item active">{{ ticker() }}</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Análisis de {{ ticker() }}</h2>
+    <span class="badge bg-primary fs-5">Activo en Cartera</span>
+  </div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="position-relative w-100" style="height: 350px;">
+        <canvas id="canvasDetalle"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-white">
+      <h5 class="mb-0">Historial de Operaciones</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Total Operación</th>
+            <th>Precio Operado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (op of operaciones(); track op.id) {
+            <tr>
+              <td>{{ op.fecha }}</td>
+              <td>
+                <span class="badge" [class.bg-success]="op.tipo_operacion === 'COMPRA'" [class.bg-danger]="op.tipo_operacion === 'VENTA'">
+                  {{ op.tipo_operacion }}
+                </span>
+              </td>
+              <td>{{ (op.nominales / op.ratio).toFixed(2) }}</td>
+              <td><strong>${{ ((op.nominales / op.ratio)*op.costo_accion_entera_usd).toFixed(2) }}</strong></td>
+              <td>${{ op.costo_accion_entera_usd }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

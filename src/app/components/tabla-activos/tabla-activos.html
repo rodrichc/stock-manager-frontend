@@ -1,0 +1,72 @@
+<div class="card shadow-sm border-0 rounded-lg">
+  <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+    <h5 class="text-primary fw-bold">Mis Acciones (CEDEARs)</h5>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th (click)="ordenarTabla('ticker')" style="cursor: pointer;">
+              Ticker @if (columnaActual === 'ticker') { <span>{{ ordenAscendente ? '▲' : '▼' }}</span> }
+            </th>
+            
+            <th (click)="ordenarTabla('nombre')" style="cursor: pointer;">
+              Nombre @if (columnaActual === 'nombre') { <span>{{ ordenAscendente ? '▲' : '▼' }}</span> }
+            </th>
+            
+            <th class="text-end" (click)="ordenarTabla('nominales')" style="cursor: pointer;">
+              Nominales @if (columnaActual === 'nominales') { <span>{{ ordenAscendente ? '▲' : '▼' }}</span> }
+            </th>
+            
+            <th class="text-end" (click)="ordenarTabla('bolsillo_usd')" style="cursor: pointer;">
+              Invertido @if (columnaActual === 'bolsillo_usd') { <span>{{ ordenAscendente ? '▲' : '▼' }}</span> }
+            </th>
+            
+            <th class="text-end" (click)="ordenarTabla('valor_actual_usd')" style="cursor: pointer;">
+              Actual @if (columnaActual === 'valor_actual_usd') { <span>{{ ordenAscendente ? '▲' : '▼' }}</span> }
+            </th>
+            
+            <th class="text-end" (click)="ordenarTabla('rendimiento_porcentaje')" style="cursor: pointer;">
+              Rendimiento @if (columnaActual === 'rendimiento_porcentaje') { <span>{{ ordenAscendente ? '▲' : '▼' }}</span> }
+            </th>
+
+            <th class="text-end">Precio Prom.</th>
+            <th class="text-end">Precio Actual</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (activo of listaActivos(); track activo.ticker) {
+            <tr>
+              <td>
+                <a [routerLink]="['/activo', activo.ticker]" class="text-decoration-none fw-bold text-primary">
+                  {{ activo.ticker }}
+                </a>
+              </td>
+              <td>{{ activo.nombre }}</td>
+              <td class="text-end">{{ activo.nominales }}</td>
+              
+              <td class="text-end fw-medium">{{ activo.bolsillo_usd | currency:'USD' }}</td>
+              <td class="text-end fw-medium">{{ activo.valor_actual_usd | currency:'USD' }}</td>
+              
+              <td class="text-end fw-bold"
+                  [class.text-success]="activo.rendimiento_porcentaje >= 0"
+                  [class.text-danger]="activo.rendimiento_porcentaje < 0">
+                {{ activo.rendimiento_porcentaje / 100 | percent:'1.2-2' }}
+              </td>
+              
+              <td class="text-end text-muted">{{ activo.precio_promedio | currency:'USD' }}</td>
+              <td class="text-end text-muted">{{ activo.precio_actual | currency:'USD' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="text-center py-4 text-muted">
+                No hay activos en el portfolio todavía.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

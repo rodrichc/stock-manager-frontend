@@ -1,0 +1,41 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <div class="card shadow-lg border-0 rounded-lg">
+      <div class="card-header bg-dark text-white text-center py-4">
+        <h3 class="mb-0">Iniciar Sesión</h3>
+      </div>
+      
+      <div class="card-body p-4">
+        <form (ngSubmit)="iniciarSesion()" #formLogin="ngForm">
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold">Usuario</label>
+            <input type="text" class="form-control form-control-lg" name="username" 
+                   [(ngModel)]="credenciales.username" required>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-bold">Contraseña</label>
+            <input type="password" class="form-control form-control-lg" name="password" 
+                   [(ngModel)]="credenciales.password" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="formLogin.invalid">
+            Entrar al Portfolio
+          </button>
+
+        </form>
+
+        @if (mensajeError) {
+          <div class="alert alert-danger mt-3 text-center mb-0">
+            {{ mensajeError }}
+          </div>
+        }
+      </div>
+      
+      <div class="card-footer text-center py-3 bg-light">
+        <small class="text-muted">¿No tenés cuenta? <a routerLink="/registro">Registrate acá</a></small>
+      </div>
+    </div>
+  </div>
+</div>
