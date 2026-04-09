@@ -66,4 +66,8 @@ export class ApiService {
   getRendimientoSombra() {
     return this.http.get(`${this.apiUrl}portfolio/rendimiento-sombra/`); 
   }
+
+  getDatosGraficoMwr() {
+    return this.http.get<any[]>(`${this.apiUrl}portfolio/grafico-sombra/`);
+  }
 }
