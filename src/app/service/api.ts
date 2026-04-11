@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
   private http = inject(HttpClient); 
 
-  private apiUrl = 'http://127.0.0.1:8000/'; 
+  private apiUrl = 'https://stock-manager-backend-production-5986.up.railway.app/'; 
 
   // 1. Creamos un Signal que arranca leyendo si hay token guardado
   isAuthenticated = signal<boolean>(this.chequearToken());
@@ -60,7 +60,7 @@ export class ApiService {
   }
 
   login(credenciales: any) {
-    return this.http.post(`${this.apiUrl}/login/`, credenciales);
+    return this.http.post(`${this.apiUrl}login/`, credenciales);
   }
 
   getRendimientoSombra() {
