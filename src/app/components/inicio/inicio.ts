@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ApiService } from '../../service/api';
+import { ApiService } from '../../services/api';
 import { TablaActivos } from '../tabla-activos/tabla-activos';
 import { GraficoEvolucion } from '../grafico-evolucion/grafico-evolucion';
 import { RendimientoSombra } from '../rendimiento-sombra/rendimiento-sombra';
-import { Grafico } from '../../grafico/grafico';
+import { Grafico } from '../grafico/grafico';
 
 @Component({
   selector: 'app-inicio',

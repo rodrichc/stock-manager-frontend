@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth-guard';
+import { authGuard } from './guards/auth-guard';
 import { Inicio } from './components/inicio/inicio';
 import { TablaActivos } from './components/tabla-activos/tabla-activos';
 import { DetalleActivo } from './components/detalle-activo/detalle-activo';

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ApiService } from '../../service/api';
+import { ApiService } from '../../services/api';
 // 1. IMPORTANTE: Agregamos NgForm acá
 import { FormsModule, NgForm } from '@angular/forms'; 
 

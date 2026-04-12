@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ApiService } from '../../service/api';
+import { ApiService } from '../../services/api';
 import { CurrencyPipe, PercentPipe } from '@angular/common'; 
 import { RouterLink } from '@angular/router';
 

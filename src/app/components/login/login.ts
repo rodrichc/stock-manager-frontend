@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../../service/api'; // Ojo con tu ruta acá
+import { ApiService } from '../../services/api'; // Ojo con tu ruta acá
 import { FormsModule } from '@angular/forms';
 
 @Component({

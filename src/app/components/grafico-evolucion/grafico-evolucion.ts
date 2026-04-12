@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ApiService } from '../../service/api';
+import { ApiService } from '../../services/api';
 // 1. Importamos todo lo necesario de Chart.js
 import { Chart, registerables } from 'chart.js'; 
 

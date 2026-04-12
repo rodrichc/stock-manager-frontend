@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ApiService } from '../../service/api';
+import { ApiService } from '../../services/api';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);

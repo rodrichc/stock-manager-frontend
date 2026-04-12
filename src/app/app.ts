@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { ApiService } from './service/api';
+import { ApiService } from './services/api';
 
 @Component({
   selector: 'app-root',
