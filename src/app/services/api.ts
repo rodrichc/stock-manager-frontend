@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,7 @@ export class ApiService {
   // 3. Agregamos la función para cerrar sesión
   logout() {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('cache_activos');
     this.isAuthenticated.set(false); // ¡Avisamos que salió!
   }
 
@@ -35,8 +37,25 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}portfolio/`); 
   }
 
-  getDetalle() {
-   return this.http.get<any[]>(`${this.apiUrl}portfolio/detalle/`);
+  getDetalle(): Observable<any[]> {
+    return new Observable(observador => {
+      const cacheViejo = localStorage.getItem('cache_activos');
+      
+      if (cacheViejo) {
+        observador.next(JSON.parse(cacheViejo));
+      }
+
+      this.http.get<any[]>(`${this.apiUrl}portfolio/detalle/`).subscribe({
+        next: (datosFrescos) => {
+          localStorage.setItem('cache_activos', JSON.stringify(datosFrescos));
+          observador.next(datosFrescos);
+        },
+        error: (err) => {
+          console.error('El backend no respondió:', err);
+          observador.error(err);
+        }
+      });
+    });
   }
 
   getEvolucion() {
