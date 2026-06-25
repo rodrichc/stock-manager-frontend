@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   private http = inject(HttpClient); 
 
-  private apiUrl = 'https://stock-manager-backend-production-5986.up.railway.app/'; 
+  private apiUrl = 'https://stock-manager-backend-pssm.onrender.com/'; 
 
   // 1. Creamos un Signal que arranca leyendo si hay token guardado
   isAuthenticated = signal<boolean>(this.chequearToken());
